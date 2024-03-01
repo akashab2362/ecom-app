@@ -57,3 +57,9 @@ nav{
   .menu-list a:hover{
     font-weight: bold;
   }
+  .search-bar:focus{
+    outline: none;
+  }
+  .search-bar{
+    border: none;
+  }
