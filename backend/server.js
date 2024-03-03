@@ -1,8 +1,12 @@
-import app from './app';
-import dotenv from 'dotenv';
+import app from './app.js';
+import dotenv from "dotenv";
+import connectDatabase from './config/database.js';
 
 dotenv.config({path: "backend/config/config.env"});
 
-app.listen(process.env.PORT, ()=>{
-    console.log(`Server is working on http://localhost:${process.env.PORT}`);
-})
+//Connecting to database
+connectDatabase();
+
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening on port ${process.env.PORT}`);
+});
