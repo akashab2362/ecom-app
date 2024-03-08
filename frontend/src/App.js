@@ -1,29 +1,43 @@
-import './App.css';
-import Login from './Components/login';
-import Register from './Components/register';
-import Home from './Components/home';
+import "./App.css";
+import Login from "./Components/login";
+import Register from "./Components/register";
+import Home from "./Components/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from './Components/navbar';
+import Navbar from "./Components/navbar";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <><Navbar/><Home/></>
+      element: (
+        <>
+          <Navbar />
+          <Home />
+        </>
+      ),
     },
     {
       path: "/login",
-      element: <><Navbar/><Login/></>
+      element: (
+        <>
+          <Navbar />
+          <Login />
+        </>
+      ),
     },
     {
       path: "/register",
-      element: <><Navbar/><Register/></>
-    }
-  ])
+      element: (
+        <>
+          <Navbar />
+          <Register />
+        </>
+      ),
+    },
+  ]);
   return (
     <div className="App">
-      <RouterProvider router = {router}/>
-      
+      <RouterProvider router={router} />
     </div>
   );
 }
