@@ -1,4 +1,5 @@
 import React from "react";
+// import logo_light from "./Logo/logo-light-navbar.png";
 import logo_light from "./Logo/logo-light-navbar.png";
 import { Heart, ShoppingBag, Search } from "lucide-react";
 import "./navbar.css";

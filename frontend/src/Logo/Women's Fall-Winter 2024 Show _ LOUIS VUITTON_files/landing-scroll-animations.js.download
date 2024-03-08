@@ -1,0 +1,101 @@
+/* global gsap ScrollTrigger */
+window.LVScrollAnimation = {
+  fadeInUp(classes, scrollTrigger = {}) {
+    if (!classes) return
+    const texts = gsap.utils.toArray(classes)
+    if (!texts.length) return
+    texts.forEach(trigger => {
+      gsap.fromTo(
+        trigger,
+        {
+          opacity: 0,
+          y: 30,
+          duration: 1.6,
+          ease: 'power1.inOut',
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger,
+            start: 'top 95%',
+            end: 'bottom 60%',
+            scrub: 1,
+            ...scrollTrigger,
+          },
+        },
+      )
+    })
+  },
+  clipScale(classes, scrollTrigger = {}) {
+    if (!classes) return
+    const medias = gsap.utils.toArray(classes)
+    if (!medias.length) return
+    medias.forEach(trigger => {
+      const tl = gsap.timeline({
+        defaults: { duration: 1.6, ease: 'linear' },
+        scrollTrigger: {
+          trigger,
+          start: 'top+=20% 100%',
+          end: 'bottom-=10% 100%',
+          scrub: 1,
+          ...scrollTrigger,
+        },
+      })
+      tl.fromTo(
+        trigger,
+        { clipPath: 'polygon(10% 0%, 90% 0%, 90% 100%, 10% 100%)' },
+        { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' },
+        0,
+      )
+      const mediasChild = trigger.querySelectorAll('img, video')
+      if (mediasChild.length) {
+        tl.fromTo(mediasChild, { scale: 1.2 }, { scale: 1, duration: 1.8 }, 0.6)
+      }
+    })
+  },
+  scale(classes, scrollTrigger = {}) {
+    if (!classes) return
+    const medias = gsap.utils.toArray(classes)
+    if (!medias.length) return
+    medias.forEach(trigger => {
+      const tl = gsap.timeline({
+        defaults: { duration: 1.6, ease: 'linear' },
+        scrollTrigger: {
+          trigger,
+          start: 'top+=20% 100%',
+          end: 'bottom-=10% 100%',
+          scrub: 1,
+          ...scrollTrigger,
+        },
+      })
+      tl.fromTo(trigger, { scale: 1.1 }, { scale: 1, duration: 1.8 })
+    })
+  },
+  parallaxDesktop(classes) {
+    let isSmall
+    try {
+      isSmall = window.$nuxt.$store.getters['mediaQueries/isEqualOrSmallerThan']('m')
+    } catch (_) {
+      isSmall = false
+    }
+    if (isSmall) return
+    const items = gsap.utils.toArray(classes)
+    if (!items.length) return
+    items.forEach(trigger => {
+      gsap.fromTo(
+        trigger,
+        { yPercent: 30 },
+        { yPercent: 0, duration: 1, scrollTrigger: { trigger, scrub: 1 } },
+      )
+    })
+    window.LVScrollAnimation.listen()
+  },
+  listen() {
+    window.$nuxt.$store.subscribe((mutation, state) => {
+      if (mutation.type !== 'set body scroll') return
+      if (!state.hasBodyScrollLock) ScrollTrigger.enable(false)
+      else ScrollTrigger.disable(false, false)
+    })
+  },
+}
