@@ -1,27 +1,27 @@
 import { Product } from "../models/product.model.js";
 import { ErrorHandler } from "../utils/errorHandler.js";
-import { catchAsyncError } from "../middleware/catchAsyncErrors.js";
+// import { catchAsyncError } from "../middleware/catchAsyncErrors.js";
 
 // Create Product - Admin
-export const createProduct = catchAsyncError(async (req, res, next) => {
+export const createProduct = async (req, res, next) => {
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
     product,
   });
-});
+};
 
 // Get all product
-export const getAllProducts = catchAsyncError(async (req, res, next) => {
+export const getAllProducts = async (req, res, next) => {
   const products = await Product.find();
   res.status(200).json({
     success: true,
     products,
   });
-});
+};
 
 //Update Product -- Admin
-export const updateProduct = catchAsyncError(async (req, res, next) => {
+export const updateProduct = async (req, res, next) => {
   let product = await Product.findById(req.params.id);
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
@@ -35,11 +35,11 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     product,
   });
-});
+};
 
 //Delete Product
-export const deleteProduct = catchAsyncError(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+export const deleteProduct = async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
   }
@@ -48,10 +48,10 @@ export const deleteProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     message: "Product deleted successfully",
   });
-});
+};
 
 //Get single product details
-export const getProductDetails = catchAsyncError(async (req, res, next) => {
+export const getProductDetails = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
@@ -60,4 +60,4 @@ export const getProductDetails = catchAsyncError(async (req, res, next) => {
     success: true,
     product,
   });
-});
+};

@@ -8,9 +8,9 @@ app.use(express.json());
 import products from "./routes/productRoute.js";
 
 //Middleware for error
-app.use(error);
-
 app.use('/api/v1', products);
+
+app.use(error);
 
 
 export default app;
