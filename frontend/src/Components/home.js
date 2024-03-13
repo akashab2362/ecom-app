@@ -2,59 +2,60 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, DotIcon } from 'lucide-react';
 import Card from 'react-bootstrap/Card';
 
-import {img_product1_1} from "./Logo/img_product1_1.png";
-import {img_product1_2} from "./Logo/img_product1_1.png";
-import {img_product1_3} from "./Logo/img_product1_1.png";
-import {img_product1_4} from "./Logo/img_product1_1.png";
-import {img_product1_5} from "./Logo/img_product1_1.png";
+// import {img_product1_1} from "./Logo/img_product1_1.png";
+// import {img_product1_2} from "./Logo/img_product1_1.png";
+// import {img_product1_3} from "./Logo/img_product1_1.png";
+// import {img_product1_4} from "./Logo/img_product1_1.png";
+// import {img_product1_5} from "./Logo/img_product1_1.png";
 
 const SlideRepresentation = ({ slide }) => {
 
   useEffect(() => {
-    const slideInterval = setInterval(handleRight, 2000);
+      const slideInterval = setInterval(handleRight, 2000);
 
-    return () => clearInterval(slideInterval);
+      return () => clearInterval(slideInterval);
   })
 
   const [Index, setIndex] = useState(0);
 
   let handleLeft = () => {
-    let ind = Index === 0 ? slide.length - 1 : Index - 1;
-    setIndex(ind);
+      let ind = Index === 0 ? slide.length - 1 : Index - 1;
+      setIndex(ind);
   }
   let handleRight = () => {
-    let ind = Index === slide.length - 1 ? 0 : Index + 1;
-    setIndex(ind);
+      let ind = Index === slide.length - 1 ? 0 : Index + 1;
+      setIndex(ind);
   }
 
   return (
-    <div className='w-full h-full mySlides fade'>
+      <div className='w-full h-full'>
 
-      {/* Slides */}
-      <div className='max-w-[1400px] h-[550px] w-full m-auto py-8 px-4 relative group cursor-pointer'>
-        <div key={slide[Index].id} className='w-full h-full rounded-2xl bg-center bg-cover flex transition-transform ease-out duration-500' style={{ backgroundImage: `url(${slide[Index].url})`, transform: `translateX(-${Index * 100}%)` }} >
-        </div>
+          {/* Slides */}
+          <div className='max-w-[1400px] h-[550px] w-full m-auto py-8 px-4 relative group cursor-pointer'>
+              <div key={slide[Index.id]} style={{ backgroundImage: `img(${slide[Index].img})` }} className='w-full h-full rounded-2xl bg-center bg-cover hover:scale-105 duration-500'>
+              </div>
 
-        {/* Left arrow */}
-        < div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-9 text-2xl text-white '>
-          <ChevronLeft size={50} onClick={handleLeft} />
-        </div>
+              {/* Left arrow */}
+              < div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-9 text-2xl text-white '>
+                  <ChevronLeft size={50} onClick={handleLeft} />
+              </div>
 
-        {/* Right arrow */}
-        < div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-9 text-2xl text-white'>
-          <ChevronRight size={50} onClick={handleRight} />
-        </div>
+              {/* Right arrow */}
+              < div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-9 text-2xl text-white'>
+                  <ChevronRight size={50} onClick={handleRight} />
+              </div>
 
-        {/* Bottom indicators */}
-        <div className='flex top-4 justify-center items-center py-2 gap-2'>
-          {slide.map((slides, slideInd) => (
-            <DotIcon size={40} className={`transition-all ${Index === slideInd ? "bg-opacity-50" : "p-2"}`} />
-          ))}
-        </div>
+              {/* Bottom indicators */}
+              <div className='flex top-4 justify-center items-center py-2 gap-2'>
+                  {slide.map((slides, slideInd) => (
+                      <DotIcon size={40} className={`transition-all ${Index === slideInd ? "bg-opacity-50" : "p-2"}`} />
+                  ))}
+              </div>
+          </div>
       </div>
-    </div>
   )
 }
+
 
 const CardSliders = ({slide}) => {
   const [Index, setIndex] = useState(0);
@@ -70,7 +71,7 @@ const CardSliders = ({slide}) => {
 
           {/* Slides */}
           <div className='max-w-[1400px] h-[550px] w-full m-auto py-8 px-4 relative group cursor-pointer'>
-              <div style={{ backgroundImage: `url(${slide[Index].img})` }} className='w-full h-full rounded-2xl bg-center bg-cover duration-500'>
+              <div key={slide[Index.id]} style={{ backgroundImage: `img(${slide[Index].img})` }} className='w-full h-full rounded-2xl bg-center bg-cover hover:scale-105 duration-500'>
               </div>
           </div>
       </div>
@@ -81,51 +82,51 @@ const Home = () => {
   const ProductList1 = [
     {
       id: 1,
-      // url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-JJ-min60.jpg",
-      url: {img_product1_1}
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-JJ-min60.jpg",
+      // img: {img_product1_1}
     },
     {
       id: 2,
-      // url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P3-tigc-thebearhouse-min60cv.jpg",
-      url: {img_product1_2}
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P3-tigc-thebearhouse-min60cv.jpg",
+      // img: {img_product1_2}
     },
     {
       id: 3,
-      // url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P6-AVAASA-FUSION-MIN50.jpg",
-      url: {img_product1_3}
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P6-AVAASA-FUSION-MIN50.jpg",
+      // img: {img_product1_3}
     },
     {
       id: 4,
-      // url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-superdry-min50.jpg"
-      url: {img_product1_4}
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-superdry-min50.jpg"
+      // img: {img_product1_4}
     },
     {
       id: 5,
-      // url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-.jpg"
-      url: {img_product1_5}
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-.jpg"
+      // img: {img_product1_5}
     },
   ];
 
   const Productlist2 = [
     {
       id: 1,
-      url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P2-GAP-M&S-UPTO70.jpg",
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P2-GAP-M&S-UPTO70.jpg",
     },
     {
       id: 2,
-      url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P5-MABISHBYSONALJAIN-FABLESTREET-MIN50.jpg",
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-WHP-010324-MAINBANNER-Z1-P5-MABISHBYSONALJAIN-FABLESTREET-MIN50.jpg",
     },
     {
       id: 3,
-      url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P3-levis-wrangler-min40.jpg",
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P3-levis-wrangler-min40.jpg",
     },
     {
       id: 4,
-      url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P4-dnmx-netplay-min601.jpg",
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07032024-MainBannerDailyChanging-Z1-P4-dnmx-netplay-min601.jpg",
     },
     {
       id: 5,
-      url: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-ONLY-Veromoda-min60.jpg"
+      img: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-02032024-SPONSORBANNERCAROUSEL-Z2-ONLY-Veromoda-min60.jpg"
     }
   ];
 
