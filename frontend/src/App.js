@@ -4,6 +4,7 @@ import Register from "./Components/register";
 import Home from "./Components/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./Components/navbar";
+import Footer from "./Components/Footer";
 
 function App() {
   const router = createBrowserRouter([
@@ -38,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <Footer/>
     </div>
   );
 }
