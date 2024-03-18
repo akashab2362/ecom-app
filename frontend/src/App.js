@@ -5,6 +5,7 @@ import Home from "./Components/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Footer from "./Components/Footer";
+import AboutUs from "./Components/AboutUs";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,6 +15,8 @@ function App() {
         <>
           <Navbar />
           <Home />
+          <AboutUs />
+          <Footer />
         </>
       ),
     },
@@ -39,7 +42,6 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      <Footer/>
     </div>
   );
 }
