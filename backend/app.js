@@ -10,10 +10,10 @@ app.use(cookieParser());
 import products from "./routes/productRoute.js";
 import user from './routes/userRoutes.js';
 
-//Middleware for error
 app.use('/api/v1', products);
-app.use('/api/v1', user)
+app.use('/api/v1', user);
 
+//Middleware for error
 app.use(error);
 
 
