@@ -10,6 +10,9 @@ import ProductDetails from "./Products/ProductDetails";
 import WomenProducts from "./Products/WomenProducts";
 import MenProducts from "./Products/MenProducts";
 import KidsProducts from "./Products/KidsProduct";
+import Cart from "./Cart/Cart";
+import Shipping from "./Cart/Shipping";
+import ConfirmOrder from "./Cart/ConfirmOrder";
 
 function App() {
   const router = createBrowserRouter([
@@ -90,6 +93,25 @@ function App() {
           <WomenProducts />
           <MenProducts />
           <KidsProducts />
+          <Footer />
+        </>
+      )
+    },
+    {
+      path: "/cart",
+      element: (
+        <>  
+          <Navbar />
+          <Cart />
+          <Footer />
+        </>
+      )
+    },
+    {
+      path: "/shipping",
+      element: (
+        <>
+          <Shipping />
           <Footer />
         </>
       )

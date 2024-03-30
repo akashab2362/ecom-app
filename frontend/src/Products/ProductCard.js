@@ -16,10 +16,10 @@ const ProductCard = ({ product }) => {
     return (
 
         <>
-            <Link className='productCard' to={`${product._id}`}>
+            <Link className='productCard' to={`/product/${product._id}`}>
                 <div className="relative group hover:shadow-lg px-1.5">
                     <div className="overflow-hidden aspect-w-1 aspect-h-1">
-                        <img className="object-cover w-full h-full transition-all duration-300 group-hover:scale-110" src={product.images[0].url} alt="" />
+                        <img className="object-cover w-full h-full transition-all duration-300 group-hover:scale-110" src={product.images[0].url} alt={product.name} />
                     </div>
 
                     {/* <div className="absolute left-3 top-3">
@@ -34,7 +34,7 @@ const ProductCard = ({ product }) => {
 
                             <div className="flex items-center mt-2 space-x-px">
                                 <ReactStars {...options} />
-                                {/* <span className="absolute inset-0" aria-hidden="true"> (256 review) </span> */}
+                                <span className="absolute inset-0" aria-hidden="true"> ({product.numOfReviews} Reviews) </span>
 
                             </div>
                         </div>

@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactStars from 'react-rating-stars-component';
 import { ShoppingBag } from "lucide-react";
 import { useAlert } from 'react-alert';
 import { useParams } from 'react-router-dom';
 
+import MetaData from '../Layout/MetaData.js';
 import { clearErrors, getProductDetails } from '../actions/productAction';
+import { addItemsToCart } from '../actions/cartAction.js';
 import ReviewCard from './ReviewCard.js';
 import Loader from '../Loader/Loader.js';
 
@@ -27,6 +29,25 @@ const ProductDetails = () => {
     dispatch(getProductDetails(id));
   }, [dispatch, id, error, alert]);
 
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    if(product.stock <= quantity) return;
+    
+    setQuantity(quantity + 1);
+  }
+  
+  const decreaseQuantity = () => {
+    if(1 >= quantity) return;
+    
+    setQuantity(quantity - 1);
+  }
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Item Added to Cart");
+  }
+
   const options = {
     edit: false,
     color: "rgba(20, 20, 20, 0.1)",
@@ -41,7 +62,7 @@ const ProductDetails = () => {
       {
         loading ? <Loader /> : (
           <>
-
+            <MetaData title={`${product.name} -- Byte Bazaar`} />
             <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
               {/* Image comes here */}
               <div className="container mx-auto px-4">
@@ -100,16 +121,16 @@ const ProductDetails = () => {
                 <div className="mt-6">
                   <p className="pb-2 text-xs text-gray-500">Quantity</p>
                   <div className="flex">
-                    <button>-</button>
+                    <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500" onClick={decreaseQuantity}>-</button>
                     <div className="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">
-                      1
+                      { quantity }
                     </div>
-                    <button>+</button>
+                    <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500" onClick={increaseQuantity}>+</button>
                   </div>
                 </div>
 
                 <div className="mt-7 flex flex-row items-center gap-6">
-                  <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
+                  <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800" onClick={addToCartHandler}>
                     <ShoppingBag className="mx-2" />
                     Add to cart
                   </button>
