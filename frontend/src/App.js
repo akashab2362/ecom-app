@@ -1,8 +1,13 @@
+import { useEffect, useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import "./App.css";
+
 import Login from "./Authentication/login";
 import Register from "./Authentication/register";
 import Home from "./Layout/home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./Layout/navbar";
 import Footer from "./Layout/Footer";
 import AboutUs from "./Layout/AboutUs";
@@ -13,8 +18,22 @@ import KidsProducts from "./Products/KidsProduct";
 import Cart from "./Cart/Cart";
 import Shipping from "./Cart/Shipping";
 import ConfirmOrder from "./Cart/ConfirmOrder";
+import Payment from "./Cart/Payment";
+import OrderSuccess from "./Cart/OrderSuccess"
 
 function App() {
+
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getSytripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+    setStripeApiKey(data.stripeApiKey);
+  }
+
+  useEffect(() => {
+    getSytripeApiKey();
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -88,7 +107,7 @@ function App() {
     {
       path: "/products/:keyword",
       element: (
-        <>  
+        <>
           <Navbar />
           <WomenProducts />
           <MenProducts />
@@ -100,7 +119,7 @@ function App() {
     {
       path: "/cart",
       element: (
-        <>  
+        <>
           <Navbar />
           <Cart />
           <Footer />
@@ -115,7 +134,37 @@ function App() {
           <Footer />
         </>
       )
-    }
+    },
+    {
+      path: "/order/confirm",
+      element: (
+        <>
+          <ConfirmOrder />
+          <Footer />
+        </>
+      )
+    },
+    {
+      path: "/success",
+      element: (
+        <>
+          <OrderSuccess />
+        </>
+      )
+    },
+    <Elements stripe={ loadStripe(stripeApiKey) }>
+      {
+        {
+          path: "/process/payment",
+          element: (
+            <>
+              <Payment />
+              <Footer />
+            </>
+          )
+        }
+      }
+    </Elements>
   ]);
   return (
     <div className="App">
