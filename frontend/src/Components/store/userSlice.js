@@ -101,7 +101,7 @@ export const forgotPassword = createAsyncThunk(
 //Reset Password
 export const resetPassword = createAsyncThunk(
   "user/resetPassword",
-  async (token, passwords) => {
+  async ({token, passwords}) => {
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put(

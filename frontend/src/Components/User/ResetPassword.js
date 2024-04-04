@@ -23,11 +23,11 @@ const ResetPassword = () => {
     myForm.set("password", password);
     myForm.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(token, myForm));
+    dispatch(resetPassword({token, myForm}));
   };
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      alert.error(error.message);
       dispatch(clearError());
     }
     if (success) {
@@ -51,7 +51,6 @@ const ResetPassword = () => {
                 action="#"
                 method="POST"
                 className="mt-8"
-                encType="multipart/form-data"
                 onSubmit={resetPasswordSubmit}
               >
                 <div className="space-y-5">

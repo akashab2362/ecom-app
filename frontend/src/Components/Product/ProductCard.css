@@ -26,10 +26,10 @@
 }
 .productCard > div > span{
     margin: 0.5vmax;
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Arial";
 }
 .productCard > p{
-    font-family: "Roboto";
+    font-family: "Arial";
     font-size: 1.2vmax;
     margin: 1vmax 0.5vmax;
     margin-bottom: 0;
@@ -63,7 +63,7 @@
     }
     .productCard > div > span{
         margin: 0 0.5vmax;
-        font: 300 1vmax "Roboto";
+        font: 300 1vmax "Arial";
     }
     
 }

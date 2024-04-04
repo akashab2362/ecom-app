@@ -47,11 +47,11 @@ function Navbar() {
               </li>
               <li>
                 <Link to="/register">
-                  <span className="loginCAAT">Join TAC</span>
+                  <span className="loginCAAT">Join Byte Bazaar</span>
                 </Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/customer-care">
                   <span className="customercare">Customer Care</span>
                 </Link>
               </li>
@@ -62,33 +62,33 @@ function Navbar() {
           <ul>
             <li>
               <Link to="/products">
-                <span className="tabs men">MEN</span>
+                <span className="tabs men">Products</span>
               </Link>
             </li>
-            <li>
-              <Link to="/women">
+            {/* <li>
+              <Link to="/products">
                 <span className="tabs women">WOMEN</span>
               </Link>
             </li>
             <li>
-              <Link to="/kids">
+              <Link to="/products">
                 <span className="tabs kids">KIDS</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
           <span className="submit-btn">
             <input
               className="search-bar"
               type="text"
               autoComplete="on"
-              placeholder="Search TAC"
+              placeholder="Search"
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={handleKeyPress}
             />
             <Search className="cursor-pointer" color="#000" strokeWidth={1.5} size={18} onClick={searchSubmitHandler}/>
           </span>
-          <Heart color="#e22400" strokeWidth={1.5} />
-          <Link to="/">
+          {/* <Heart color="#e22400" strokeWidth={1.5} /> */}
+          <Link to="/cart">
             <ShoppingBag color="#000" strokeWidth={1.5} />
           </Link>
         </div>

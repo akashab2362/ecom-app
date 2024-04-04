@@ -1,36 +1,139 @@
-import React, { useEffect } from "react";
-import "./Product.css";
+import React, { Fragment, useEffect, useState } from "react";
+import "./Products.css";
 import ProductCard from "./ProductCard.js";
-import { fetchProducts, clearErrors } from "../store/productSlice.js"; // Import fetchProducts action creator
-import { useSelector, useDispatch } from "react-redux"; // Correct import names
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProducts, clearErrors } from "../store/productSlice.js"; 
 import Loader from "../Layout/Loader.js";
+import Pagination from "react-js-pagination";
+import Slider from "@mui/material/Slider";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router-dom";
+import MetaData from "../Layout/MetaData.js";
+
+const categories = [
+  "Shirts",
+  "Jeans",
+  "Trackpant",
+  "Sweatshirt & Hoodies",
+  "Short & 3/4ths",
+  "T-Shirts",
+  "Kurtas",
+];
 
 const WomenProducts = () => {
-  const alert = useAlert();
+  const { keyword } = useParams();
   const dispatch = useDispatch();
-  const { loading, error, products, productsCount } = useSelector((state) => state.products); // Correct selector
 
-  // useEffect(() => {
-  //   if (error) {
-  //     return alert.error(error);
-  //   }
-  //   dispatch(fetchProducts()); // Dispatch fetchProducts action
-  // }, [dispatch, error, alert]);
+  const alert = useAlert();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState("");
+
+  const [ratings, setRatings] = useState(0);
+
+  const {
+    products,
+    loading,
+    error,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  } = useSelector((state) => state.product);
+
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
+  };
+  let count = filteredProductsCount;
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    dispatch(fetchProducts({keyword, currentPage, price, category})); // Dispatch fetchProducts action
+  }, [dispatch, error, alert, keyword, currentPage, price, category]);
 
   return (
-    <>
+    <Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <div className="container">
-          {/* Map over products array to render Product component */}
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        <Fragment>
+          <MetaData title="PRODUCTS -- ECOMMERCE" />
+          <h2 className="productsHeading">Products</h2>
+
+          <div className="products">
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+          </div>
+
+          <div className="filterBox">
+            Price
+            <Slider
+              value={price}
+              onChange={priceHandler}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              min={0}
+              max={2500}
+            />
+
+            Categories
+            <ul className="categoryBox">
+              {categories.map((category) => (
+                <li
+                  className="category-link"
+                  key={category}
+                  onClick={() => setCategory(category)}
+                >
+                  {category}
+                </li>
+              ))}
+            </ul>
+
+            <fieldset>
+              Ratings Above
+              <Slider
+                value={ratings}
+                onChange={(e, newRating) => {
+                  setRatings(newRating);
+                }}
+                aria-labelledby="continuous-slider"
+                valueLabelDisplay="auto"
+                min={0}
+                max={5}
+              />
+            </fieldset>
+          </div>
+          {resultPerPage < count && (
+            <div className="paginationBox">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+              />
+            </div>
+          )}
+        </Fragment>
       )}
-    </>
+    </Fragment>
   );
 };
 

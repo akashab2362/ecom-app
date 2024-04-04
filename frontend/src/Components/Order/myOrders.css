@@ -1,0 +1,26 @@
+/* myOrders.css */
+
+/* Styles for the entire page */
+.myOrdersPage {
+  padding: 20px;
+}
+
+.ordersHeading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Styles for the DataGrid */
+.myOrdersTable {
+  margin-top: 20px;
+}
+
+/* Styles for the Status cell */
+.greenColor {
+  color: green;
+}
+
+.redColor {
+  color: red;
+}

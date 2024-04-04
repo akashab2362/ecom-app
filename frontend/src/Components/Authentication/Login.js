@@ -24,7 +24,7 @@ export default function Login() {
       dispatch(clearError());
     }
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/account");
     }
   }, [dispatch, error, alert, navigate, isAuthenticated]);
   return (

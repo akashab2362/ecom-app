@@ -1,9 +1,11 @@
 import express from "express";
+const app = express();
 import error from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
-const app = express();
+import dotenv from "dotenv";
+dotenv.config({ path: "backend/config/config.env" });
 
 app.use(express.json());
 app.use(cookieParser());
@@ -14,10 +16,12 @@ app.use(fileUpload());
 import products from "./routes/productRoute.js";
 import user from "./routes/userRoutes.js";
 import order from "./routes/orderRoute.js";
+import payment from "./routes/paymentRoute.js";
 
 app.use("/api/v1", products);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
+app.use("/api/v1", payment);
 
 //Middleware for error
 app.use(error);

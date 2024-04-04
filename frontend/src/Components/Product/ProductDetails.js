@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { product, loading, error } = useSelector((state) => state.products);
+  const { product, loading, error } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (error) {
@@ -43,7 +43,8 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(id, quantity));
+    dispatch(addItemsToCart({id, quantity}));
+    console.log(quantity);
     alert.success("Item Added to Cart");
   };
 
@@ -88,7 +89,7 @@ const ProductDetails = () => {
                 <div className="flex items-center">
                   <ReactStars {...options} />
                   <p className="ml-3 text-sm text-gray-400">
-                    ({product.numOfReviews})
+                    ({product.noOfReviews})
                   </p>
                 </div>
               </div>
@@ -170,7 +171,7 @@ const ProductDetails = () => {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews m-20">
               {product.reviews &&
-                product.reviews.map((review) => <ReviewCard review={review} />)}
+                product.reviews.map((review, index) => <ReviewCard key={index} review={review} />)}
             </div>
           ) : (
             <p className="noReviews mb-24">
