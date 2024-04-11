@@ -10,7 +10,7 @@ const initialState = {
 
 export const createOrder = createAsyncThunk(
   "order/createOrder",
-  async (order, { rejectWithValue }) => {
+  async (order) => {
     try {
       const config = {
         headers: {

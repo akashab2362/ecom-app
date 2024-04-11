@@ -18,13 +18,13 @@ const Account = () => {
       {loading ? (
         <Loader /> 
       ) : (
-        <div className="my-28">
+        <div className="my-5">
           <MetaData title={`${user.name}'s Profile`} />
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
               <img src={user.avatar.url} alt={user.name} />
-              <Link to="/me/update">Edit Profile</Link>
+              <Link className="flex w-full justify-center items-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" to="/me/update">Edit Profile</Link>
             </div>
             <div>
               <div>
@@ -40,8 +40,8 @@ const Account = () => {
                 <p>{String(user.createdAt).substring(0, 10)}</p>
               </div>
               <div>
-                <Link to="/orders">My Orders</Link>
-                <Link to="/password/update">Change Password</Link>
+                <Link className="flex w-full justify-center items-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" to="/orders">My Orders</Link>
+                <Link className="flex w-full justify-center items-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" to="/password/update">Change Password</Link>
               </div>
             </div>
           </div>

@@ -62,7 +62,7 @@ const UpdateProfile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <div className="bg-white rounded-2xl m-5">
           <MetaData title={`Update Profile`} />
           <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
             <div className="LoginSignUpBox">
@@ -145,7 +145,7 @@ const UpdateProfile = () => {
               </form>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

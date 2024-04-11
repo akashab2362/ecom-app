@@ -1,19 +1,17 @@
 /* customerCare.css */
 
-.customerCareContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
   .customerCareHeading {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-left: 30px;
   }
   
   .customerCareContent {
     line-height: 1.6;
+    margin: 1.25rem;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
   }
   
   .customerCareContent p {

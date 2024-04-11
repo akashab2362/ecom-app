@@ -5,7 +5,7 @@ const CustomerCare = () => {
   return (
     <div className="customerCareContainer">
       <h2 className="customerCareHeading">Customer Care</h2>
-      <div className="customerCareContent">
+      <div className="customerCareContent ">
         <p>
           Welcome to our Customer Care page. We are here to assist you with any questions or concerns you may have regarding our products, services, or your orders.
         </p>

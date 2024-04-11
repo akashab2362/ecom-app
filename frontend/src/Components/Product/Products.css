@@ -1,25 +1,60 @@
-.productsHeading {
-  margin: 2vmax auto;
-  width: 15vw;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
-  padding: 2vmax;
-  color: rgba(0, 0, 0, 0.678);
-  font: 500 3vmax "Arial";
-  text-align: center;
+body {
+  background-color: rgb(238, 238, 238);
 }
 
-.products {
+.prodcontainer {
+  margin-top: 9px;
+}
+.productsHeading{
+  font-weight: bolder;
+  font-size: xx-large;
+}
+.filter-box {
+  background-color: white;
+  padding: 2vw;
+  width: 25%; /* Adjust the width as needed */
+}
+
+.productContainer {
+  background-color: white;
+  width: 75%; /* Adjust the width as needed */
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5vmax;
+  /* justify-content: space-evenly; */
   justify-content: center;
-  min-height: 30vh;
 }
 
+.product-card {
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 25%;
+  max-width: 25%;
+}
+
+.productsHeading {
+  text-align: center;
+}
+.categoryDropdown {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+}
+
+.categoryDropdown option {
+  padding: 0.5rem;
+}
 .paginationBox {
   display: flex;
   justify-content: center;
-  margin: 6vmax;
+  /* margin: 6vmax; */
+  margin: 1.25rem 0;
 }
 
 .pagination {
@@ -64,45 +99,4 @@
 
 .pageLinkActive {
   color: white;
-}
-
-.filterBox {
-  width: 13vmax;
-  position: absolute;
-  top: 10vmax;
-  left: 4vmax;
-}
-
-.categoryBox {
-  padding: 0%;
-}
-.filter-title{
-  font-weight: bolder;
-}
-.category-link {
-  list-style: none;
-  color: rgba(0, 0, 0, 0.61);
-  font: 400 1.4vmax "Arial";
-  margin: 0.4vmax;
-  cursor: pointer;
-  transition: all 0.5s;
-}
-.category-link:hover {
-  color: tomato;
-}
-
-
-@media screen and (max-width: 600px) {
-  .filterBox {
-    width: 20vmax;
-    position: static;
-    margin: auto;
-  }
-
-  .page-link {
-    font: 300 2vmax "Arial";
-  }
-  .category-link {
-    font: 400 2vmax "Arial";
-  }
 }

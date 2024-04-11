@@ -13,13 +13,13 @@ function Navbar() {
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/products/${keyword}`); // Using navigate instead of history.push
+      navigate(`/products/${keyword}`);
     } else {
-      navigate("/products"); // Using navigate instead of history.push
+      navigate("/products");
     }
   };
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       searchSubmitHandler(e);
     }
   };
@@ -51,7 +51,7 @@ function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link to="/customer-care">
+                <Link to="/customercare">
                   <span className="customercare">Customer Care</span>
                 </Link>
               </li>
@@ -65,16 +65,6 @@ function Navbar() {
                 <span className="tabs men">Products</span>
               </Link>
             </li>
-            {/* <li>
-              <Link to="/products">
-                <span className="tabs women">WOMEN</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/products">
-                <span className="tabs kids">KIDS</span>
-              </Link>
-            </li> */}
           </ul>
           <span className="submit-btn">
             <input
@@ -85,9 +75,15 @@ function Navbar() {
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={handleKeyPress}
             />
-            <Search className="cursor-pointer" color="#000" strokeWidth={1.5} size={18} onClick={searchSubmitHandler}/>
+            <Search
+              className="cursor-pointer"
+              color="#000"
+              strokeWidth={1.5}
+              size={18}
+              onClick={searchSubmitHandler}
+            />
           </span>
-          {/* <Heart color="#e22400" strokeWidth={1.5} /> */}
+          <Heart color="#e22400" strokeWidth={1.5} />
           <Link to="/cart">
             <ShoppingBag color="#000" strokeWidth={1.5} />
           </Link>

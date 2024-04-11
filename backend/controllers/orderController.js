@@ -7,7 +7,7 @@ import { Product } from "../models/product.model.js";
 export const newOrder = catchAsyncError(async (req, res, next) => {
   const {
     shippingInfo,
-    orderIems,
+    orderItems,
     paymentInfo,
     itemsPrice,
     taxPrice,
@@ -16,7 +16,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
   } = req.body;
   const order = await Order.create({
     shippingInfo,
-    orderIems,
+    orderItems,
     paymentInfo,
     itemsPrice,
     taxPrice,
@@ -47,12 +47,12 @@ export const getSingleOrder = catchAsyncError(async (req, res, next) => {
 });
 // Get Logged In User's order
 export const myOrders = catchAsyncError(async (req, res, next) => {
-  const order = await Order.find({
+  const orders = await Order.find({
     user: req.user._id,
   });
   res.status(200).json({
     success: true,
-    order,
+    orders,
   });
 });
 
@@ -99,7 +99,7 @@ export const updateOrder = catchAsyncError(async (req, res, next) => {
 
 async function updateStock(id, quantity) {
   const product = await Product.findById(id);
-  product.Stock -= quantity;
+  product.stock -= quantity;
   await product.save({ validateBeforeSave: false });
 }
 

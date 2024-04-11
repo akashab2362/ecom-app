@@ -44,7 +44,7 @@ const UpdatePassword = () => {
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <div className="m-5 rounded-2xl bg-white">
           <MetaData title={`Update Password`} />
           <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
             <div className="LoginSignUpBox">
@@ -135,7 +135,7 @@ const UpdatePassword = () => {
               </form>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

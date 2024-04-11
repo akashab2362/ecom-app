@@ -3,15 +3,16 @@ import axios from "axios";
 
 export const addItemsToCart = createAsyncThunk(
   "cart/addItemsToCart",
-  async ({ id, quantity }, { getState }) => {
+  async ({ id, quantity, size }, { getState }) => {
     const { data } = await axios.get(`/api/v1/product/${id}`);
     const product = {
       product: data.product._id,
-      name: data.product.name,
-      price: data.product.price,
-      image: data.product.images[0].url,
+      name: data.product.title,
+      price: data.product.selling_price,
+      image: data.product.images[0],
       stock: data.product.stock,
       quantity: quantity,
+      size: size
     };
     localStorage.setItem(
       "cartItems",

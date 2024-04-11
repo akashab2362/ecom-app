@@ -22,7 +22,9 @@ app.use("/api/v1", products);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 app.use("/api/v1", payment);
-
+app.get("/api/v1/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+);
 //Middleware for error
 app.use(error);
 

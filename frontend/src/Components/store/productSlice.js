@@ -7,14 +7,14 @@ export const fetchProducts = createAsyncThunk(
   async ({
     keyword = "",
     currentPage = 1,
-    price = [0, 2500],
-    category,
+    selling_price = [0, 2500],
+    sub_category,
     ratings = 0,
   }) => {
     try {
-      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-      if (category) {
-        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&selling_price[gte]=${selling_price[0]}&selling_price[lte]=${selling_price[1]}&ratings[gte]=${ratings}`;
+      if (sub_category) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&selling_price[gte]=${selling_price[0]}&selling_price[lte]=${selling_price[1]}&sub_category=${sub_category}&ratings[gte]=${ratings}`;
       }
       const { data } = await axios.get(link);
       return data;

@@ -23,6 +23,7 @@ export class ApiFeatures {
     //Remove some fields for category
     const removeFields = ["keyword", "page", "limit"];
     removeFields.forEach((key)=> delete queryCopy[key])
+    
 
     //Filter for Price and Rating
     let queryStr = JSON.stringify(queryCopy);
