@@ -83,7 +83,7 @@ function Navbar() {
               onClick={searchSubmitHandler}
             />
           </span>
-          <Heart color="#e22400" strokeWidth={1.5} />
+          {/* <Heart color="#e22400" strokeWidth={1.5} /> */}
           <Link to="/cart">
             <ShoppingBag color="#000" strokeWidth={1.5} />
           </Link>

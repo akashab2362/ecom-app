@@ -11,6 +11,15 @@ import { clearErrors, fetchProductDetails } from "../store/productSlice.js";
 import { addItemsToCart } from "../store/cartSlice.js";
 import ReviewCard from "./ReviewCard.js";
 import Loader from "../Layout/Loader.js";
+import Rating from "@mui/material/Rating";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+import { newReview } from "../store/productSlice.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -34,6 +43,9 @@ const ProductDetails = () => {
   }, [dispatch, id, error, alert]);
 
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const increaseQuantity = () => {
     if (product.stock <= quantity) return;
@@ -56,6 +68,23 @@ const ProductDetails = () => {
     alert.success("Item Added to Cart");
   };
 
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+
+  const reviewSubmitHandler = async () => {
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", id);
+
+    await dispatch(newReview(myForm));
+    await dispatch(fetchProductDetails(id));
+
+    setOpen(false);
+  };
+
   const options = {
     edit: false,
     color: "rgba(20, 20, 20, 0.1)",
@@ -71,7 +100,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title={`${product.title} -- Byte Bazaar`} />
+          <MetaData title={`${product.name} -- Byte Bazaar`} />
           <section className="flex m-5 gap-5">
             {/* Images Comes here */}
             <Carousel className="Carousel rounded-2xl w-2/6 bg-white items-center h-screen">
@@ -79,8 +108,8 @@ const ProductDetails = () => {
                 product.images.map((item, i) => (
                   <img
                     className="object-cover w-full"
-                    key={item}
-                    src={item}
+                    key={i}
+                    src={item.url}
                     alt={`${i} Slide`}
                   />
                 ))}
@@ -88,7 +117,7 @@ const ProductDetails = () => {
             {/* Description comes here */}
             <div className="lg:px-5 w-2/3 bg-white rounded-2xl p-20">
               <h2 className="pt-3 text-2xl font-bold lg:pt-0 ml-10">
-                {product.title}
+                {product.name}
               </h2>
               <p className="pt-5 text-lg leading-5 text-gray-500 mb-4 ml-10">
                 {product.description}
@@ -112,23 +141,14 @@ const ProductDetails = () => {
               </p>
 
               <p className="mt-4 text-4xl font-bold text-violet-900 ml-10">
-                {`₹${product.selling_price}`}
+                {`₹${product.price}`}
               </p>
 
-              {product.product_details && (
+              {product.productDetails && (
                 <ul className="list-disc my-7 ml-10">
-                  {product.product_details.map((detail, index) => {
-                    // Extract the field name and value from each detail object
-                    const fieldName = Object.keys(detail)[1];
-                    const fieldValue = detail[fieldName];
-                    return (
-                      <li key={index}>
-                        {/* Display the field name and value */}
-                        <strong>{fieldName}: </strong>
-                        {fieldValue}
-                      </li>
-                    );
-                  })}
+                  {product.productDetails.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
                 </ul>
               )}
 
@@ -182,7 +202,10 @@ const ProductDetails = () => {
                   <ShoppingBag className="mx-2" />
                   Add to cart
                 </button>
-                <button className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <button
+                  onClick={submitReviewToggle}
+                  className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
                   Submit Review
                 </button>
               </div>
@@ -190,6 +213,38 @@ const ProductDetails = () => {
           </section>
           <div className="bg-white rounded-2xl mx-5 py-10 mb-5">
             <h3 className="reviewsHeading">Reviews</h3>
+
+            <Dialog
+              aria-labelledby="simple-dialog-title"
+              open={open}
+              onClose={submitReviewToggle}
+            >
+              <DialogTitle>Submit Review</DialogTitle>
+              <DialogContent className="submitDialog">
+                <Rating
+                  onChange={(e) => setRating(e.target.value)}
+                  value={rating}
+                  size="large"
+                />
+
+                <textarea
+                  className="submitDialogTextArea"
+                  cols="30"
+                  rows="5"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={submitReviewToggle} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={reviewSubmitHandler} color="primary">
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             {product.reviews && product.reviews[0] ? (
               <div className="reviews m-20">
                 {product.reviews &&

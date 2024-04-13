@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MetaData from "../Layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
@@ -8,6 +8,7 @@ import { createOrder, clearErrors } from "../store/orderSlice";
 import { useAlert } from "react-alert";
 
 const ConfirmOrder = () => {
+  const navigate = useNavigate();
   const alert = useAlert();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -20,7 +21,8 @@ const ConfirmOrder = () => {
   );
   const shippingCharges = subtotal > 1000 ? 0 : 200;
   const tax = subtotal * 0.18;
-  const totalPrice = (subtotal + tax + shippingCharges).toFixed(2);
+  // const totalPrice = (subtotal + tax + shippingCharges).toFixed(2);
+  const totalPrice = subtotal + tax + shippingCharges;
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
@@ -61,7 +63,49 @@ const ConfirmOrder = () => {
       amount,
     });
 
-
+    // var options = {
+    //   key,
+    //   amount: order.amount,
+    //   currency: "INR",
+    //   name: "ByteBazaar",
+    //   description: "Payment for Products",
+    //   image:
+    //     "https://www.google.com/imgres?q=ima&imgurl=https%3A%2F%2F164.100.158.23%2Fwritereaddata%2FPortal%2FPhoto_Gallery%2F4%2Ft_14_CAL_ST_07.JPG&imgrefurl=https%3A%2F%2F164.100.158.23%2Fima.htm&docid=uCPKaCRihSrSAM&tbnid=7EoWyxjWUc6ymM&vet=12ahUKEwj15Lry97mFAxVyd2wGHexBCZgQM3oECBsQAA..i&w=262&h=160&hcb=2&ved=2ahUKEwj15Lry97mFAxVyd2wGHexBCZgQM3oECBsQAA",
+    //   order_id: order.id,
+    //   handler: function (response) {
+    //     console.log(response);
+    //     const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+    //     const order = {
+    //       shippingInfo,
+    //       orderItems: cartItems,
+    //       itemsPrice: orderInfo.subtotal,
+    //       taxPrice: orderInfo.tax,
+    //       shippingPrice: orderInfo.shippingCharges,
+    //       totalPrice: orderInfo.totalPrice,
+    //     };
+        
+    //     dispatch(createOrder(order));
+    //     navigate('/paymentsuccess')
+    //   },
+    //   prefill: {
+    //     name: user.name,
+    //     email: user.email,
+    //     contact: "9999999999",
+    //   },
+    //   notes: {
+    //     address: address,
+    //   },
+    //   theme: {
+    //     color: "#121212",
+    //   },
+    // };
+    // var razorpayObject = new window.Razorpay(options);
+    // console.log(razorpayObject);
+    // razorpayObject.on("payment.failed", function (response) {
+    //   console.log(response);
+    //   alert("This step of Payment Failed");
+    // });
+    // razorpayObject.open();
 
     const options = {
       key: key,

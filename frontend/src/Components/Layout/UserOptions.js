@@ -34,7 +34,7 @@ const UserOptions = ({ user }) => {
         <ul className="login-help-nav">
           {user.role === "admin" && (
             <li>
-              <Link to="/dashboard">
+              <Link to="/admin/dashboard">
                 <span className="loginCAAT">Dashboard</span>
               </Link>
             </li>

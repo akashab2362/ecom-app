@@ -16,9 +16,9 @@ const ReviewCard = ({ review }) => {
   return (
     <div className="reviewCard">
       <img src={user} alt="User" />
-      <p>{review.name}</p>
+      <p className="reviewtitle">{review.name}</p>
       <ReactStars {...options} />
-      <span>{review.comment}</span>
+      <p className="overflow-scroll reviewCardComment">{review.comment}</p>
     </div>
   );
 };

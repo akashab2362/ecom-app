@@ -182,12 +182,13 @@
   .reviewCard > img {
     width: 5vmax;
   }
-  .reviewCard > p {
+  .reviewtitle {
     color: rgba(0, 0, 0, 0.836);
-    font: 600 0.9vmax "Roboto";
+    font: 600 0.9vmax "Arial";
   }
   .reviewCardComment {
-    color: rgba(0, 0, 0, 0.445);
+    width: 300px;
+    color: rgb(0, 0, 0);
     font: 300 0.8vmax cursive;
   }
   

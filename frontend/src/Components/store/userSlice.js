@@ -101,7 +101,7 @@ export const forgotPassword = createAsyncThunk(
 //Reset Password
 export const resetPassword = createAsyncThunk(
   "user/resetPassword",
-  async ({token, passwords}) => {
+  async ({ token, passwords }) => {
     try {
       const config = { headers: { "Content-Type": "application/json" } };
       const { data } = await axios.put(
@@ -116,6 +116,61 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+// get All Users
+export const getAllUsers = createAsyncThunk("user/getAllUsers", async () => {
+  try {
+    const { data } = await axios.get(`/api/v1/admin/users`);
+    return data.users;
+  } catch (error) {
+    throw error.response.data.message;
+  }
+});
+
+// get  User Details
+export const getUserDetails = createAsyncThunk(
+  "user/getUserDetails",
+  async (id) => {
+    try {
+      const { data } = await axios.get(`/api/v1/admin/user/${id}`);
+      return data.user;
+    } catch (error) {
+      throw error.response.data.message;
+    }
+  }
+);
+
+// Update  User
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async (id, userData) => {
+    try {
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/v1/admin/user/${id}`,
+        userData,
+        config
+      );
+      return data.success;
+    } catch (error) {
+      throw error.response.data.message;
+    }
+  }
+);
+
+// Delete  User
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (id, userData) => {
+    try {
+      const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
+      return data;
+    } catch (error) {
+      throw error.response.data.message;
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -124,7 +179,9 @@ const userSlice = createSlice({
     loading: false,
     error: null,
     isUpdated: false,
-    success:false
+    isDeleted: false,
+    success: false,
+    users: [],
   },
   reducers: {
     clearError(state) {
@@ -135,6 +192,12 @@ const userSlice = createSlice({
     },
     updatePasswordReset(state, action) {
       state.isUpdated = false;
+    },
+    updateUserReset(state, action) {
+      state.isUpdated = false;
+    },
+    deleteUserReset(state, action) {
+      state.isDeleted = false;
     },
   },
   extraReducers: (builder) => {
@@ -243,10 +306,60 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error;
         // state.error = action.payload;
+      })
+      .addCase(getAllUsers.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getAllUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(getAllUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.error = action.payload;
+      })
+      .addCase(getUserDetails.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isUpdated = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.error = action.payload;
+      })
+      .addCase(deleteUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isDeleted = action.payload;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.error = action.payload;
       });
   },
 });
 export const { clearError } = userSlice.actions;
 export const { updateProfileReset } = userSlice.actions;
 export const { updatePasswordReset } = userSlice.actions;
+export const { updateUserReset } = userSlice.actions;
+export const { deleteUserReset } = userSlice.actions;
 export default userSlice.reducer;

@@ -13,7 +13,7 @@ const Cart = () => {
 
     if (stock <= quantity) return;
 
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart({id, newQty}));
   };
 
   const decreaseQuantity = (id, quantity) => {
@@ -21,7 +21,7 @@ const Cart = () => {
 
     if (1 >= quantity) return;
 
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart({id, newQty}));
   };
 
   const deleteCartItems = (id) => {
